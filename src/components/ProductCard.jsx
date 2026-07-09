@@ -6,7 +6,12 @@ export function ProductCard({ product, to }) {
 
   return (
     <article className="product-card">
-      {product.emoji && (
+      {product.image && (
+        <div className="product-image">
+          <img src={product.image} alt={product.name || product.title || ''} loading="lazy" />
+        </div>
+      )}
+      {!product.image && product.emoji && (
         <div className="product-emoji" aria-hidden="true">
           {product.emoji}
         </div>

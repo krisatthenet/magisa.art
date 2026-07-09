@@ -11,7 +11,9 @@
     "server": "node server/index.js"
   },
   "dependencies": {
-    "express": "^4.22.2",
+    "express": "^4.21.2",
+    "pdfkit": "^0.15.2",
+    "pocketbase": "^0.21.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.18.1"

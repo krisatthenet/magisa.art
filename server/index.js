@@ -2,6 +2,8 @@ import express from 'express';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import aiRouter from './routes/ai.js';
+import labelsRouter from './routes/labels.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.join(__dirname, 'data');
@@ -9,6 +11,9 @@ const ORDERS_FILE = path.join(DATA_DIR, 'orders.json');
 
 const app = express();
 app.use(express.json());
+
+app.use('/api/ai', aiRouter);
+app.use('/api/labels', labelsRouter);
 
 function readOrders() {
   try {
@@ -91,5 +96,5 @@ app.get('/api/orders', (_req, res) => {
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
-  console.log(`Magisa Art order server listening on http://localhost:${PORT}`);
+  console.log(`Magisa Art services listening on http://localhost:${PORT}`);
 });

@@ -1,8 +1,14 @@
 node_modules
 dist
 .env
+.env.local
 server/data
 
 .kilo
 build.log
 build.err
+vite.log
+*.stackdump
+
+# local PocketBase runtime (binary + data), not part of the deployed app
+pb/
