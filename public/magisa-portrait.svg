@@ -1,0 +1,20 @@
+<svg width="800" height="1000" viewBox="0 0 800 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="1000" rx="8" fill="#0A0A0B"/>
+  <rect x="70" y="70" width="660" height="860" rx="6" fill="#17161A" stroke="#C99A4B" stroke-opacity="0.4" stroke-width="4"/>
+  <ellipse cx="400" cy="300" rx="150" ry="180" fill="#2B1A1F"/>
+  <path d="M250 350C250 250 310 180 400 180C490 180 550 250 550 350V410C550 470 510 520 450 540L400 560L350 540C290 520 250 470 250 410V350Z" fill="#23141A"/>
+  <path d="M307 357C307 287 348 228 400 228C452 228 493 287 493 357V420C493 467 456 512 400 530C344 512 307 467 307 420V357Z" fill="#F0C5A0"/>
+  <path d="M314 336C314 260 351 213 400 213C449 213 486 260 486 336V377C486 418 458 455 400 476C342 455 314 418 314 377V336Z" fill="#E0AD86"/>
+  <path d="M332 370C352 333 380 318 400 318C420 318 448 333 468 370L480 396C492 422 483 460 454 479L400 510L346 479C317 460 308 422 320 396L332 370Z" fill="#4A2B26"/>
+  <path d="M320 640C340 585 372 560 400 560C428 560 460 585 480 640L508 732H292L320 640Z" fill="#3A2327"/>
+  <path d="M240 730C270 640 328 590 400 590C472 590 530 640 560 730L588 860H212L240 730Z" fill="#111"/>
+  <path d="M270 840C320 780 372 760 400 760C428 760 480 780 530 840L574 930H226L270 840Z" fill="#1D1218"/>
+  <circle cx="352" cy="340" r="10" fill="#1A0E11"/>
+  <circle cx="446" cy="340" r="10" fill="#1A0E11"/>
+  <path d="M354 418C372 431 388 438 400 438C412 438 428 431 446 418" stroke="#A6593D" stroke-width="8" stroke-linecap="round"/>
+  <path d="M292 276C318 228 344 204 400 204C456 204 482 228 508 276" stroke="#C99A4B" stroke-opacity="0.4" stroke-width="12" stroke-linecap="round"/>
+  <path d="M222 734C250 682 270 650 324 624" stroke="#C99A4B" stroke-opacity="0.33" stroke-width="12" stroke-linecap="round"/>
+  <path d="M578 734C550 682 530 650 476 624" stroke="#7D1C1C" stroke-opacity="0.45" stroke-width="12" stroke-linecap="round"/>
+  <rect x="150" y="172" width="500" height="92" rx="4" fill="#100F12" stroke="#C99A4B" stroke-opacity="0.3" stroke-width="3"/>
+  <text x="400" y="228" text-anchor="middle" fill="#E7E1D2" font-family="'Cinzel Decorative', 'Arial Black', sans-serif" font-size="42" letter-spacing="3">MAGISA</text>
+</svg>
