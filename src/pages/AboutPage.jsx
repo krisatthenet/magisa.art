@@ -20,7 +20,11 @@ export default function AboutPage() {
           </div>
           <img
             className="maker-photo"
-            src="/magisa-portrait.svg"
+            src="/owner.jpeg"
+            onError={(event) => {
+              event.currentTarget.onerror = null;
+              event.currentTarget.src = '/magisa-portrait.svg';
+            }}
             alt="Magisa, the maker and owner of Magisa Art"
           />
         </section>

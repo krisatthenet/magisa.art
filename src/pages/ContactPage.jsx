@@ -11,7 +11,11 @@ export default function ContactPage() {
         <section className="about-card contact-card">
           <img
             className="maker-photo"
-            src="/magisa-portrait.svg"
+            src="/owner.jpeg"
+            onError={(event) => {
+              event.currentTarget.onerror = null;
+              event.currentTarget.src = '/magisa-portrait.svg';
+            }}
             alt="Portrait of Magisa, the jewelry maker and owner"
           />
           <div>
