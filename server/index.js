@@ -94,6 +94,14 @@ app.get('/api/orders', (_req, res) => {
   res.json(readOrders());
 });
 
+const DIST_DIR = path.join(__dirname, '..', 'dist');
+if (fs.existsSync(DIST_DIR)) {
+  app.use(express.static(DIST_DIR));
+  app.get(/^(?!\/api\/).*/, (_req, res) => {
+    res.sendFile(path.join(DIST_DIR, 'index.html'));
+  });
+}
+
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`Magisa Art services listening on http://localhost:${PORT}`);
