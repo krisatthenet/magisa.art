@@ -12,3 +12,4 @@ vite.log
 
 # local PocketBase runtime (binary + data), not part of the deployed app
 pb/
+logs/

@@ -17,8 +17,13 @@ export default function Login() {
     try {
       await login(identity, password);
       navigate('/admin', { replace: true });
-    } catch {
-      setError('Invalid credentials. Use the PocketBase admin or a platform user account.');
+    } catch (err) {
+      const isAuthFailure = err?.status === 400 || err?.status === 401;
+      setError(
+        isAuthFailure
+          ? 'Invalid credentials. Use the PocketBase admin or a platform user account.'
+          : `Could not reach PocketBase (${err?.message || 'network error'}). Check the API connection.`
+      );
     } finally {
       setLoading(false);
     }
