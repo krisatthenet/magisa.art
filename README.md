@@ -23,7 +23,7 @@ public/products/      product photos
    ```
    npm install
    ```
-2. Copy `.env.example` to `.env` and fill in what you need (SMTP, OpenAI key, etc). `VITE_PB_URL` defaults to `http://127.0.0.1:8090` for local dev.
+2. Use Node.js 20 or newer, copy `.env.example` to `.env`, and fill in what you need (SMTP, OpenAI key, etc). `VITE_PB_URL` defaults to `http://127.0.0.1:8090` for local dev.
 3. Download [PocketBase](https://pocketbase.io/docs/) (use a `0.22.x` release — the setup script and `AuthContext` target the legacy admin/API shape, not the `0.23+` superusers rewrite) and run it from a `pb/` folder (gitignored):
    ```
    pocketbase.exe serve
