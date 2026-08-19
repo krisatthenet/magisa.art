@@ -49,4 +49,8 @@ PocketBase collections created by `scripts/setup-pb.mjs` have `@request.auth.id 
 
 ## Deployment
 
-Intended to mirror the same stack as other projects on this account: **Hostinger** for the static frontend build (`npm run build` → `dist/`), **Railway** for the Express API (`railway.json` is already configured) and for hosting PocketBase as its own service. Point `VITE_API_URL` and `VITE_PB_URL` at the deployed Railway services when building for production.
+Intended to mirror the same stack as other projects on this account: **Hostinger** for the Node-served frontend and Express API, and **Railway** for hosting PocketBase as its own service. Production builds use `https://pocketbase-production-8554.up.railway.app` unless overridden by `VITE_PB_URL`. Set `PB_URL` to the same production URL on the Railway Node service when using its `/api/pb` proxy.
+
+### Railway PocketBase service
+
+Configure the Railway PocketBase service to use `Dockerfile.pocketbase` as its Dockerfile. Mount its persistent volume at `/data` and keep the public domain pointed at the service. The container listens on Railway's `$PORT`, stores PocketBase data in `/data`, and applies the checked-in `pb_migrations` directory on startup.

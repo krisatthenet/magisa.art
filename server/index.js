@@ -8,8 +8,37 @@ import labelsRouter from './routes/labels.js';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.join(__dirname, 'data');
 const ORDERS_FILE = path.join(DATA_DIR, 'orders.json');
+const POCKETBASE_URL = process.env.PB_URL || 'http://127.0.0.1:8090';
 
 const app = express();
+
+app.use('/api/pb', async (req, res) => {
+  const targetUrl = `${POCKETBASE_URL}${req.originalUrl.replace(/^\/api\/pb/, '')}`;
+
+  try {
+    const headers = { ...req.headers };
+    delete headers.host;
+    delete headers['content-length'];
+
+    const response = await fetch(targetUrl, {
+      method: req.method,
+      headers,
+      body: ['GET', 'HEAD'].includes(req.method) ? undefined : req,
+      duplex: 'half',
+    });
+
+    res.status(response.status);
+    response.headers.forEach((value, key) => res.setHeader(key, value));
+    if (response.body) {
+      for await (const chunk of response.body) res.write(chunk);
+    }
+    res.end();
+  } catch (error) {
+    console.error('PocketBase proxy error:', error.message);
+    res.status(502).json({ error: 'PocketBase is unavailable.' });
+  }
+});
+
 app.use(express.json());
 
 app.use('/api/ai', aiRouter);

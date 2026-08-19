@@ -1,0 +1,18 @@
+FROM debian:bookworm-slim
+
+ARG PB_VERSION=0.22.47
+
+RUN apt-get update \
+    && apt-get install --no-install-recommends -y ca-certificates curl unzip \
+    && rm -rf /var/lib/apt/lists/* \
+    && curl -fsSL -o /tmp/pocketbase.zip "https://github.com/pocketbase/pocketbase/releases/download/v${PB_VERSION}/pocketbase_${PB_VERSION}_linux_amd64.zip" \
+    && unzip /tmp/pocketbase.zip pocketbase -d /usr/local/bin \
+    && chmod +x /usr/local/bin/pocketbase \
+    && rm /tmp/pocketbase.zip
+
+WORKDIR /app
+COPY pb_migrations ./pb_migrations
+
+ENV PB_DATA_DIR=/data
+
+CMD ["sh", "-c", "pocketbase serve --http=0.0.0.0:${PORT:-8090} --dir=${PB_DATA_DIR} --migrationsDir=/app/pb_migrations"]
