@@ -11,7 +11,7 @@ RUN apt-get update \
     && rm /tmp/pocketbase.zip
 
 WORKDIR /app
-COPY pb_migrations ./pb_migrations
+COPY pb/pb_migrations ./pb_migrations
 
 ENV PB_DATA_DIR=/data
 
