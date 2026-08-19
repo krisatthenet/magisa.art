@@ -1,6 +1,6 @@
 FROM debian:bookworm-slim
 
-ARG PB_VERSION=0.22.47
+ARG PB_VERSION=0.29.3
 
 RUN apt-get update \
     && apt-get install --no-install-recommends -y ca-certificates curl unzip \
