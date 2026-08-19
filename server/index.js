@@ -4,6 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import aiRouter from './routes/ai.js';
 import labelsRouter from './routes/labels.js';
+import productsRouter from './routes/products.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.join(__dirname, 'data');
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app.use('/api/ai', aiRouter);
 app.use('/api/labels', labelsRouter);
+app.use('/api/products', productsRouter);
 
 app.get('/api/health', (_req, res) => {
   res.json({ ok: true, service: 'magisa-api' });

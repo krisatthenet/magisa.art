@@ -57,4 +57,4 @@ Configure the Railway PocketBase service in the Railway UI to use `Dockerfile.po
 
 ### Railway API service
 
-Configure the separate API service in the Railway UI to use `Dockerfile.api`. It runs only `server/index.js` and listens on Railway's `$PORT`. Use `/api/health` as its healthcheck and set `VITE_API_URL` in the Hostinger frontend build to the API service domain.
+Configure the separate API service in the Railway UI to use `Dockerfile.api`. It runs only `server/index.js` and listens on Railway's `$PORT`. Use `/api/health` as its healthcheck, set `VITE_API_URL` in the Hostinger frontend build to the API service domain, and configure `PB_URL` plus either `PB_ADMIN_TOKEN` or `PB_ADMIN_EMAIL`/`PB_ADMIN_PASSWORD` for the `/api/products` route.

@@ -20,8 +20,10 @@ export default function Warehouse() {
 
   const load = async () => {
     try {
-      const res = await pb.collection('products').getList(1, 100, { sort: 'sku' });
-      setRows(res.items);
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'https://api.magisa.art'}/api/products`);
+      if (!response.ok) throw new Error(`Products API returned ${response.status}`);
+      const res = await response.json();
+      setRows(res.items || []);
       setLoadError('');
     } catch (error) {
       setLoadError(error?.message || 'Could not load products from PocketBase.');
