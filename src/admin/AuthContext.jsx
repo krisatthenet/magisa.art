@@ -11,8 +11,19 @@ export function AuthProvider({ children }) {
   }, []);
 
   const login = async (identity, password) => {
-    const auth = await pb.collection('users').authWithPassword(identity, password);
-    return auth.record;
+    try {
+      const auth = await pb.collection('users').authWithPassword(identity, password);
+      return auth.record;
+    } catch (userError) {
+      if (![400, 401].includes(userError?.status)) throw userError;
+
+      const adminAuth = await pb.send('/api/admins/auth-with-password', {
+        method: 'POST',
+        body: { identity, password },
+      });
+      pb.authStore.save(adminAuth.token, adminAuth.admin);
+      return adminAuth.admin;
+    }
   };
 
   const logout = () => pb.authStore.clear();
