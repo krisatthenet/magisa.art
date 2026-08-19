@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useCart } from '../cart/CartContext';
 
 const API_BASE = import.meta.env.VITE_API_URL || (import.meta.env.PROD
-  ? 'https://pocketbase-production-8554.up.railway.app'
+  ? 'https://api.magisa.art'
   : '');
 
 export default function Cart() {
