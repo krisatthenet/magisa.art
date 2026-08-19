@@ -20,7 +20,9 @@ export default function Warehouse() {
 
   const load = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'https://api.magisa.art'}/api/products`);
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'https://api.magisa.art'}/api/products`, {
+        headers: pb.authStore.token ? { Authorization: pb.authStore.token } : {},
+      });
       if (!response.ok) throw new Error(`Products API returned ${response.status}`);
       const res = await response.json();
       setRows(res.items || []);

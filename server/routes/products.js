@@ -4,7 +4,8 @@ const router = express.Router();
 const pocketBaseUrl = process.env.PB_URL || 'https://db.magisa.art';
 let adminToken = process.env.PB_ADMIN_TOKEN || '';
 
-async function getAdminToken() {
+async function getAdminToken(requestToken) {
+  if (requestToken) return requestToken;
   if (adminToken) return adminToken;
   if (!process.env.PB_ADMIN_EMAIL || !process.env.PB_ADMIN_PASSWORD) {
     throw new Error('PB_ADMIN_EMAIL and PB_ADMIN_PASSWORD are required');
@@ -25,9 +26,9 @@ async function getAdminToken() {
   return adminToken;
 }
 
-router.get('/', async (_req, res) => {
+router.get('/', async (req, res) => {
   try {
-    const token = await getAdminToken();
+    const token = await getAdminToken(req.headers.authorization);
     const response = await fetch(`${pocketBaseUrl}/api/collections/products/records?perPage=100&sort=sku`, {
       headers: { Authorization: token },
     });
@@ -38,7 +39,7 @@ router.get('/', async (_req, res) => {
     res.json(await response.json());
   } catch (error) {
     console.error('Products API error:', error.message);
-    res.status(503).json({ error: 'Products service is unavailable.' });
+    res.status(503).json({ error: error.message });
   }
 });
 
