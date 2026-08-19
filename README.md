@@ -53,8 +53,8 @@ Intended to use **Hostinger** for the frontend and **Railway** for the Express A
 
 ### Railway PocketBase service
 
-Configure the Railway PocketBase service to use `railway.pocketbase.json` as its Railway config file. It selects `Dockerfile.pocketbase`. Mount its persistent volume at `/data` and keep the public domain pointed at the service. The container listens on Railway's `$PORT`, stores PocketBase data in `/data`, and applies the checked-in `pb_migrations` directory on startup.
+Configure the Railway PocketBase service in the Railway UI to use `Dockerfile.pocketbase`. Mount its persistent volume at `/data` and keep the public domain pointed at the service. The container listens on Railway's `$PORT`, stores PocketBase data in `/data`, and applies the checked-in `pb_migrations` directory on startup.
 
 ### Railway API service
 
-The default `railway.json` configures the API service with `Dockerfile.api`. It runs only `server/index.js` and listens on Railway's `$PORT`. Use `/api/health` as its healthcheck and set `VITE_API_URL` in the Hostinger frontend build to the API service domain.
+Configure the separate API service in the Railway UI to use `Dockerfile.api`. It runs only `server/index.js` and listens on Railway's `$PORT`. Use `/api/health` as its healthcheck and set `VITE_API_URL` in the Hostinger frontend build to the API service domain.
