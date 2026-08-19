@@ -8,37 +8,8 @@ import labelsRouter from './routes/labels.js';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.join(__dirname, 'data');
 const ORDERS_FILE = path.join(DATA_DIR, 'orders.json');
-const POCKETBASE_URL = process.env.PB_URL || 'http://127.0.0.1:8090';
 
 const app = express();
-
-app.use('/api/pb', async (req, res) => {
-  const targetUrl = `${POCKETBASE_URL}${req.originalUrl.replace(/^\/api\/pb/, '')}`;
-
-  try {
-    const headers = { ...req.headers };
-    delete headers.host;
-    delete headers['content-length'];
-
-    const response = await fetch(targetUrl, {
-      method: req.method,
-      headers,
-      body: ['GET', 'HEAD'].includes(req.method) ? undefined : req,
-      duplex: 'half',
-    });
-
-    res.status(response.status);
-    response.headers.forEach((value, key) => res.setHeader(key, value));
-    if (response.body) {
-      for await (const chunk of response.body) res.write(chunk);
-    }
-    res.end();
-  } catch (error) {
-    console.error('PocketBase proxy error:', error.message);
-    res.status(502).json({ error: 'PocketBase is unavailable.' });
-  }
-});
-
 app.use(express.json());
 
 app.use('/api/ai', aiRouter);
@@ -58,7 +29,9 @@ function readOrders() {
 
 function writeOrders(orders) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
-  fs.writeFileSync(ORDERS_FILE, JSON.stringify(orders, null, 2));
+  const tempFile = `${ORDERS_FILE}.tmp`;
+  fs.writeFileSync(tempFile, `${JSON.stringify(orders, null, 2)}\n`);
+  fs.renameSync(tempFile, ORDERS_FILE);
 }
 
 async function sendNotification(order) {
@@ -127,15 +100,18 @@ app.get('/api/orders', (_req, res) => {
   res.json(readOrders());
 });
 
-const DIST_DIR = path.join(__dirname, '..', 'dist');
-if (fs.existsSync(DIST_DIR)) {
-  app.use(express.static(DIST_DIR));
-  app.get(/^(?!\/api\/).*/, (_req, res) => {
-    res.sendFile(path.join(DIST_DIR, 'index.html'));
-  });
-}
+app.use((_req, res) => {
+  res.status(404).json({ error: 'API route not found.' });
+});
+
+app.use((error, _req, res, _next) => {
+  console.error('Unhandled API error:', error);
+  res.status(500).json({ error: 'Internal server error.' });
+});
 
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => {
-  console.log(`Magisa Art services listening on http://localhost:${PORT}`);
+const HOST = process.env.HOST || '0.0.0.0';
+
+app.listen(PORT, HOST, () => {
+  console.log(`Magisa Art API listening on ${HOST}:${PORT}`);
 });
