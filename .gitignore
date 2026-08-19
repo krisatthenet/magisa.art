@@ -11,10 +11,9 @@ vite.log
 *.stackdump
 
 # local PocketBase runtime (binary + data), not part of the deployed app
-pb/
+pb/*
 logs/
 
 # PocketBase schema migrations are required by the Railway image
-!pb/
 !pb/pb_migrations/
 !pb/pb_migrations/*.js
