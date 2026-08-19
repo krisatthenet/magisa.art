@@ -49,7 +49,7 @@ PocketBase collections created by `scripts/setup-pb.mjs` have `@request.auth.id 
 
 ## Deployment
 
-Intended to mirror the same stack as other projects on this account: **Hostinger** for the Node-served frontend and Express API, and **Railway** for hosting PocketBase as its own service. Production builds use `https://pocketbase-production-8554.up.railway.app` unless overridden by `VITE_PB_URL`. Set `PB_URL` to the same production URL on the Railway Node service when using its `/api/pb` proxy.
+Intended to use **Hostinger** for the frontend and **Railway** for the Express API. The current Railway API URL is `https://pocketbase-production-8554.up.railway.app` until a custom domain such as `api.magisa.art` is added. Set `VITE_API_URL` to that API URL when building the frontend.
 
 ### Railway PocketBase service
 

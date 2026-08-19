@@ -6,7 +6,7 @@
   "deploy": {
     "startCommand": "node server/index.js",
     "restartPolicyType": "ON_FAILURE",
-    "healthcheckPath": "/api/orders",
+    "healthcheckPath": "/api/health",
     "healthcheckTimeout": 100
   }
 }

@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useCart } from '../cart/CartContext';
 
-const API_BASE = import.meta.env.VITE_API_URL || '';
+const API_BASE = import.meta.env.VITE_API_URL || (import.meta.env.PROD
+  ? 'https://pocketbase-production-8554.up.railway.app'
+  : '');
 
 export default function Cart() {
   const { cart, changeQuantity, subtotal, clearCart } = useCart();

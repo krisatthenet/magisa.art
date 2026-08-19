@@ -44,6 +44,10 @@ app.use(express.json());
 app.use('/api/ai', aiRouter);
 app.use('/api/labels', labelsRouter);
 
+app.get('/api/health', (_req, res) => {
+  res.json({ ok: true, service: 'magisa-api' });
+});
+
 function readOrders() {
   try {
     return JSON.parse(fs.readFileSync(ORDERS_FILE, 'utf-8'));
