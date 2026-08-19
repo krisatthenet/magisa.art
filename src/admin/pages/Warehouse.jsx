@@ -16,10 +16,16 @@ export default function Warehouse() {
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState(empty);
   const [imageFile, setImageFile] = useState(null);
+  const [loadError, setLoadError] = useState('');
 
   const load = async () => {
-    const res = await pb.collection('products').getList(1, 100, { sort: 'sku' });
-    setRows(res.items);
+    try {
+      const res = await pb.collection('products').getList(1, 100, { sort: 'sku' });
+      setRows(res.items);
+      setLoadError('');
+    } catch (error) {
+      setLoadError(error?.message || 'Could not load products from PocketBase.');
+    }
   };
   useEffect(() => { load(); }, []);
 
@@ -49,6 +55,7 @@ export default function Warehouse() {
         <h3>Products</h3>
         <button className="btn btn-primary" onClick={openNew}>+ Add product</button>
       </div>
+      {loadError && <p className="status-message">{loadError}</p>}
       <table className="admin-table">
         <thead><tr><th>SKU</th><th>Name</th><th>Category</th><th>Price</th><th>Status</th><th></th></tr></thead>
         <tbody>
